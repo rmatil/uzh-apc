@@ -1,0 +1,7 @@
+test
+This
+a
+word
+Spellchecker
+ABC
+*

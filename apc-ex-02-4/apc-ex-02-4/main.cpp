@@ -1,0 +1,74 @@
+//
+//  main.cpp
+//  apc-ex-02-4
+//
+//  Created by Raphael Matile on 23.10.13.
+//  Copyright (c) 2013 Raphael Matile. All rights reserved.
+//
+
+#include <iostream>
+#include <fstream>
+#include <set>
+#include <cerrno>
+
+std::set<std::string> dictionary;
+void readDictionary(const char *pPath);
+void check(const char *pPath);
+
+int main(int argc, const char * argv[])
+{
+	if (argc < 3) {
+		std::cerr << "Too few arguments to start program." << std::endl;
+		std::cerr << "Usage: dictionary.txt text.txt" << std::endl;
+		exit(1);
+	}
+	// read dictonary from file
+	readDictionary(argv[1]);
+	check(argv[2]);
+    
+	
+	return 0;
+}
+
+// read Patterns
+void readDictionary(const char *pPath) {
+	std::ifstream infile;
+	infile.open(pPath);
+	
+	if (!infile.good()) {
+		std::cerr << "An error occured during file read. File: " << pPath << ", Error: " << strerror(errno) << std::endl;
+		infile.close();
+		exit(2);
+	}
+	
+	while (!infile.eof()) {
+		std::string tmp;
+		infile >> tmp;
+		dictionary.insert(tmp);
+	}
+	
+	infile.close();
+}
+
+
+// check if word is stored in the set
+void check(const char *pPath) {
+	std::ifstream infile;
+	infile.open(pPath);
+	
+	if (!infile.good()) {
+		std::cerr << "An error occured during file read. File: " << pPath << ", Error: " << strerror(errno) << std::endl;
+		infile.close();
+		exit(2);
+	}
+	
+	while (!infile.eof()) {
+		std::string tmp;
+		infile >> tmp;
+		if (dictionary.find(tmp) == dictionary.end()) {
+			 // word not found
+			std::cout << tmp << std::endl;
+		}
+	}
+	std::cout << "All words checked." << std::endl;
+}
