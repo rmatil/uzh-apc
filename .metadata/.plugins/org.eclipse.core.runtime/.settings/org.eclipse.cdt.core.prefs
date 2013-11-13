@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+environment/workspace=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<environment append\="true" appendContributed\="true"/>\n
+language.settings.providers.disabled=false
+macros/workspace=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<macros/>\n
+org.eclipse.cdt.core.showSourceRootsAtTopLevelOfProject=true
+org.eclipse.cdt.core.taskPriorities=normal,normal,normal
+org.eclipse.cdt.core.taskTags=TODO,FIXME,XXX

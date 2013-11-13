@@ -30,9 +30,7 @@ struct persister<std::string> {
         std::getline(i, elem);
 	}
 	static void	write(std::ofstream &o, const std::string &elem) {
-        if (elem != "") {
-            o << elem << "\n";
-        }
+            o << elem;
 	}
 };
 

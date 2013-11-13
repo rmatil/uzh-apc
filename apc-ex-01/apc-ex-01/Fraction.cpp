@@ -8,9 +8,6 @@
 
 #include "Fraction.h"
 
-using namespace std;
-
-
 Fraction::Fraction(int pCounter, int pDenominator) {
     counter = pCounter;
 	denominator = pDenominator;
@@ -36,7 +33,14 @@ int Fraction::getDenominator() {
 
 void Fraction::setDenominator(const int pDenominator) {
     denominator = pDenominator;
+    // validating denominator
+    try {
     validateFraction(*this);
+    } catch (const char *e) {
+        std::cerr << e << std::endl;
+        std::cerr << "Denominator will be set to 1." << std::endl;
+        denominator = 1;
+    }
 }
 
 Fraction Fraction::operator+(Fraction &pFraction) {
@@ -45,8 +49,11 @@ Fraction Fraction::operator+(Fraction &pFraction) {
     // crosswise multiply
     tmp.counter = (counter * pFraction.denominator) + (pFraction.counter * denominator);
     tmp.denominator = (denominator * pFraction.denominator);
-    tmp.reduce();
-    
+    try {
+        tmp.reduce();
+    } catch (const char *e) {
+        std::cerr << e << std::endl;
+    }
     return tmp;
 }
 
@@ -56,8 +63,11 @@ Fraction Fraction::operator-(Fraction &pFraction) {
     // crosswise multiply
     tmp.counter = (counter * pFraction.denominator) - (pFraction.counter * denominator);
     tmp.denominator = (denominator * pFraction.denominator);
-    tmp.reduce();
-    
+    try {
+        tmp.reduce();
+    } catch (const char *e) {
+        std::cerr << e << std::endl;
+    }
     return tmp;
 }
 
@@ -67,8 +77,11 @@ Fraction Fraction::operator*(Fraction &pFraction) {
     // crosswise multiply
     tmp.counter = (counter * pFraction.counter);
     tmp.denominator = (denominator * pFraction.denominator);
-    tmp.reduce();
-    
+    try {
+        tmp.reduce();
+    } catch (const char *e) {
+        std::cerr << e << std::endl;
+    }
     return tmp;
 }
 
@@ -77,8 +90,11 @@ Fraction Fraction::operator/(Fraction &pFraction) {
     // validation of fraction in constructor and in method setDenominator()
     tmp.counter = (counter * pFraction.denominator);
     tmp.denominator = (denominator * pFraction.counter);
-    tmp.reduce();
-    
+    try {
+        tmp.reduce();
+    } catch (const char *e) {
+        std::cerr << e << std::endl;
+    }
     return tmp;
 }
 
@@ -90,11 +106,11 @@ Fraction Fraction::operator/(Fraction &pFraction) {
 
 // wheter a nor b should be 0
 int Fraction::gcf(int a, int b) {
-    if (a<b) swap(a,b);
+    if (a<b) std::swap(a,b);
     
     while (b!=0) {
         a=a-b;
-        if (a<b) swap(a,b);
+        if (a<b) std::swap(a,b);
     }
     return a;
 }
@@ -111,16 +127,20 @@ void Fraction::reduce() {
         j *= -1;
     }
     
-    int res = gcf(i, j);
+    int result = gcf(i, j);
     
+    if (result == 0) {
+        throw "Dvide by zero in reduce-method. Reduce not possible";
+    }
+
     // reduce fraction
-    counter /= res;
-    denominator /= res;
+    counter /= result;
+    denominator /= result;
 }
 
 void Fraction::validateFraction(Fraction &pFraction) {
     if(pFraction.getDenominator() == 0) {
-        throw "Divide par zero.";
+        throw "Divide by zero in validateFraction-method.";
     }
 }
 
