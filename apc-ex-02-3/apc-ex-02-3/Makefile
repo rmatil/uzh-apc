@@ -1,7 +1,4 @@
-all: clean exec
-
-exec: fraction_exec
-	./fraction_exec
+all: fraction_exec
 
 fraction_exec: main.o
 	g++ main.o -o fraction_exec

@@ -9,19 +9,18 @@
 #include <iostream>
 #include "RPN.h"
 #include "RPN.cpp"
-#include "Fraction.h"
 
 int main(int argc, const char * argv[])
 {
-
-	//RPN<int> rpn = RPN<int>();
-	//rpn.run();
-	
-	//RPN<float> rpn = RPN<float>();
-	//rpn.run();
-	
-	RPN<Fraction> rpn = RPN<Fraction>();
+    // int
+	RPN<int> rpn = RPN<int>("/Users/Raphael/Dropbox/uzh/uzh-13-fall/uzh-apc/uzh-apc-ex/apc-ex-03-4/apc-ex-03-4/stack-int.txt");
 	rpn.run();
+
+    // Fraction
+    std::cout << "------------------------------------" << std::endl;
+    std::cout << "now you are using rpn with Fractions" << std::endl;
+	RPN<Fraction> rpn2 = RPN<Fraction>("/Users/Raphael/Dropbox/uzh/uzh-13-fall/uzh-apc/uzh-apc-ex/apc-ex-03-4/apc-ex-03-4/stack.txt");
+	rpn2.run();
 	
     return 0;
 }

@@ -1,7 +1,6 @@
 test
 This
 a
-word
-Spellchecker
+word.
+spellchecker
 ABC
-*

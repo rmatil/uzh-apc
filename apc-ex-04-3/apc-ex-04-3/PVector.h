@@ -15,41 +15,8 @@
 #include <cerrno>
 #include "Fraction.h"
 
-template<typename T>
-struct persister {
-	static void	read(std::ifstream &i, T &elem) {
-		i >> elem;
-	}
-	static void	write(std::ofstream &o, const T &elem) {
-		o << elem << " ";
-	}
-};
 
-template<>
-struct persister<std::string> {
-	static void	read(std::ifstream &i, std::string &elem) {
-        std::getline(i, elem);
-	}
-	static void	write(std::ofstream &o, const std::string &elem) {
-            o << elem;
-	}
-};
-
-template<>
-struct persister<Fraction> {
-	static void	read(std::ifstream &i, Fraction &elem) {
-        i >> elem;
-	}
-	static void	write(std::ofstream &o, const Fraction &elem) {
-        o << elem;
-	}
-};
-
-template<typename T, typename P=persister<T> >
-class PVector {
-	typedef P persister;
-	typedef typename std::vector<T>::iterator iterator;
-	
+template<class T> class PVector {
 private:
 	std::string mFilename;
 	std::vector<T> mVector;
@@ -58,7 +25,7 @@ private:
 	void writeVector();
 	
 public:
-    PVector() {
+	PVector() {
 		mFilename = "";
 	}
 	PVector(std::string pName) : mFilename(pName) {
@@ -67,6 +34,10 @@ public:
 	~PVector() {
 		writeVector();
 	}
+    void setFilename(std::string pFilename) {
+        mFilename = pFilename;
+        readVector();
+    }
 	void push_back(const T &pElement) {
 		mVector.push_back(pElement);
 	}
@@ -94,6 +65,13 @@ public:
 	typename std::vector<T>::reverse_iterator rend() {
 		return mVector.rend();
 	}
+    bool empty() {
+        return mVector.empty();
+    }
+
+
+	
+	
 };
 
 

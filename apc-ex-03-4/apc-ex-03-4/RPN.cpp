@@ -56,6 +56,17 @@ void RPN<T>::add() {
 	end_ = --stack_.end();
 }
 
+//Note: the inline in the specialization method. It is required for the code not to have linker error due to the method being defined more then once.
+template<>
+inline void RPN<Fraction>::add() {
+    cout << "Type your number to add to the stack: " << endl;
+    cout << "Note: User (x/y) to iput your Fraction " << endl;
+	Fraction number;
+	cin >> number;
+	stack_.push_back(number);
+	end_ = --stack_.end();
+}
+
 template<typename T>
 void RPN<T>::remove() {
 	if (stack_.size() > 0) {

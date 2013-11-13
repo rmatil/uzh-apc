@@ -14,19 +14,21 @@
 #include <list>
 #include <stdlib.h>     /* atoi */
 #include "math.h"
+#include "PVector.h"
+#include "PVector.cpp"
 
 template<typename T> class RPN {
 private:
 	std::string input_;
-	std::vector<T> stack_;
 	typename std::vector<T>::iterator end_;
 	T first_;
 	T second_;
-	T my_min_val;
-
+    T my_min_val;
+    PVector<T> stack_ = PVector<T>();
 	
 public:
-	RPN() {
+	RPN(std::string pFilename) {
+        stack_.setFilename(pFilename);
 		end_ = stack_.end();
 	};
 	~RPN() {};
@@ -41,7 +43,6 @@ public:
 	void subtraction();
 	void mulitplication();
 	void division();
-	void arctan();
 	
 	void printRes(const T pRes);
 	void printStack();

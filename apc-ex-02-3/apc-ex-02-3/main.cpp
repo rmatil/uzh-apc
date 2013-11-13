@@ -19,32 +19,36 @@ std::vector<float> stack;
 std::string input;
 
 
-
-using std::cerr;
-using std::cout;
-using std::cin;
-using std::endl;
-
 int main(int argc, const char * argv[])
 {
-	
+	// rpn loop
 	while (input != "q") {
-		cout << "Type in your command:" << endl;
-		cin >> input;
-		// erase the number on the top of the stack
+		std::cout << "Type in your command:" << std::endl;
+		std::cin >> input;
+        
 		if (input == "d") {
+            // erase number on the top of the stack
 			if (stack.size() > 0) {
 				stack.erase(stack.begin());
 			} else {
-				cout << "Your stack is already empty." << endl;
+				std::cout << "Your stack is already empty." << std::endl;
 			}
 		} else if(input == "n") {
-			cout << "Type your number to add to the stack: " << endl;
+            // adding new number to stack
+			std::cout << "Type your number to add to the stack: " << std::endl;
 			float number;
-			cin >> number;
-			stack.push_back(number);
-		} else if (input == "+" || input == "-" || input == "/" || input == "*") {
+            
+			// check input
+            if (std::cin >> number) {
+                stack.push_back(number);
+            } else {
+                std::cerr << "Type in a valid number next time." << std::endl;
+                std::cin.clear();
+                exit(EXIT_FAILURE); // shortcoming...
+            }
+		} else if (((input == "+") || (input == "-") || (input == "/") || (input == "*")) && (stack.size() > 1)) {
 			if (input == "+") {
+                // addition
 				std::vector<float>::iterator it = stack.end();
 				--it;
 				float last = *it;
@@ -53,9 +57,10 @@ int main(int argc, const char * argv[])
 				float second_last = *it;
 				stack.pop_back();
 				float res = last + second_last;
-				cout << "the result is: " << res << endl;
+				std::cout << "the result is: " << res << std::endl;
 				stack.push_back(res);
 			} else if (input == "-") {
+                // subtraction
 				std::vector<float>::iterator it = stack.end();
 				--it;
 				float last = *it;
@@ -64,9 +69,10 @@ int main(int argc, const char * argv[])
 				float second_last = *it;
 				stack.pop_back();
 				float res = second_last - last;
-				cout << "the result is: " << res << endl;
+				std::cout << "the result is: " << res << std::endl;
 				stack.push_back(res);
 			} else if (input == "*") {
+                // multipliaction
 				std::vector<float>::iterator it = stack.end();
 				--it;
 				float last = *it;
@@ -75,9 +81,10 @@ int main(int argc, const char * argv[])
 				float second_last = *it;
 				stack.pop_back();
 				float res = second_last * last;
-				cout << "the result is: " << res << endl;
+				std::cout << "the result is: " << res << std::endl;
 				stack.push_back(res);
 			} else if (input == "/") {
+                // division
 				std::vector<float>::iterator it = stack.end();
 				--it;
 				float last = *it;
@@ -86,14 +93,22 @@ int main(int argc, const char * argv[])
 				float second_last = *it;
 				stack.pop_back();
 				float res = second_last / last;
-				cout << "the result is: " << res << endl;
+				std::cout << "the result is: " << res << std::endl;
 				stack.push_back(res);
-
 			} else {
-				cout << "Your command is not available. Choose an athoer one." << endl;
-				cout << "Available commands are: q, n, d and +,-,*,/." << endl;
+                // command not specified
+				std::cout << "Your command is not available. Choose an athoer one." << std::endl;
+				std::cout << "Available commands are: +,-,*,/." << std::endl;
 			}
-		}
+        } else if (input != "+" || input != "-" || input != "*" || input != "/") {
+            // command not specified
+            if (input != "q") {
+                std::cout << "Your command is not available. Choose an athoer one." << std::endl;
+                std::cout << "Available commands are: q, n, d." << std::endl;
+            }
+		} else {
+             std::cerr << "Stack has only one element. Could not operate." << std::endl;
+        }
 		printStack();
 	}
     return 0;
@@ -102,8 +117,8 @@ int main(int argc, const char * argv[])
 void printStack() {
 	std::vector<float>::iterator pbegin = stack.begin();
 	std::vector<float>::iterator pend = stack.end();
-	
-	for (pbegin; pbegin != pend; ++pbegin) {
+	// shortcoming: view of numbers with different number of digits is a bit messy...
+	for (; pbegin != pend; ++pbegin) {
 		std::cout << "| " << *pbegin << " |" << std::endl;
 	}
 }

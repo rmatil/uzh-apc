@@ -95,7 +95,7 @@ void RPN::printStack() {
 	std::vector<float>::reverse_iterator pbegin = pvector_stack_.rbegin();
 	std::vector<float>::reverse_iterator pend = pvector_stack_.rend();
 
-	for (pbegin; pbegin != pend; ++pbegin) {
+	for (; pbegin != pend; ++pbegin) {
 		std::cout << "| " << *pbegin << " |" << std::endl;
 		
 	}

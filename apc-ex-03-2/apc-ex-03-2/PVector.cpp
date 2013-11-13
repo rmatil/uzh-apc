@@ -14,6 +14,7 @@ void PVector<T>::readVector() {
 	std::ifstream infile(mFilename.c_str());
 	if (!infile.good()) {
 		std::cerr << "An error occured during file read. File: " << mFilename << " Error: " << strerror(errno) << std::endl;
+        std::cerr << "Note: If you aren't using Xcode you may have to change the filepaths in 'main.cpp'. Thats because Xcode is using absolute paths to files..." << std::endl;
 		exit(1);
 	}
 	for (;;) {

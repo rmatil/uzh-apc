@@ -43,8 +43,14 @@ void readDictionary(const char *pPath) {
 	
 	while (!infile.eof()) {
 		std::string tmp;
+        std::string result;
 		infile >> tmp;
-		dictionary.insert(tmp);
+        // remove puncuation
+        std::remove_copy_if( tmp.begin(),
+                            tmp.end(),
+                            std::back_inserter(result),
+                            std::ptr_fun<int, int>(&std::ispunct));
+		dictionary.insert(result);
 	}
 	
 	infile.close();
@@ -64,8 +70,14 @@ void check(const char *pPath) {
 	
 	while (!infile.eof()) {
 		std::string tmp;
+        std::string result;
 		infile >> tmp;
-		if (dictionary.find(tmp) == dictionary.end()) {
+        // remove punctuation
+        std::remove_copy_if( tmp.begin(),
+                            tmp.end(),
+                            std::back_inserter(result),
+                            std::ptr_fun<int, int>(&std::ispunct));
+		if (dictionary.find(result) == dictionary.end()) {
 			 // word not found
 			std::cout << tmp << std::endl;
 		}

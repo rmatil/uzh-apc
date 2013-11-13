@@ -16,7 +16,7 @@ int main(int argc, const char * argv[]) {
 	
     // provocate an exception by setting denominator=0
     try {
-	Fraction f7(1,0);
+        Fraction f7(1,0);
 	} catch (const char *pException) {
 		std::cerr << pException << std::endl;
 	}
@@ -26,10 +26,10 @@ int main(int argc, const char * argv[]) {
     Fraction f3, f4, f5, f6;
 
     try {
-    f3 = f1*f2;
-    f4 = f1/f2;
-    f5 = f1+f2;
-    f6 = f1-f2;
+        f3 = f1*f2;
+        f4 = f1/f2;
+        f5 = f1+f2;
+        f6 = f1-f2;
     } catch (const char *pException) {
 		std::cerr << pException << std::endl;
 	}

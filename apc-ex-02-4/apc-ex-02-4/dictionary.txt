@@ -3,6 +3,5 @@ is
 a
 test
 contains
-spellchecker
+spellchecker.
 ab
-*

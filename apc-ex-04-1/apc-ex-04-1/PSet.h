@@ -13,6 +13,7 @@
 #include <set>
 #include <fstream>
 #include <cerrno>
+#include "Fraction.h"
 
 template<typename T>
 struct persisterTwo {
@@ -33,6 +34,16 @@ struct persisterTwo<std::string> {
 		if (elem != "") {
             o << elem << "\n";
         }
+	}
+};
+
+template<>
+struct persisterTwo<Fraction> {
+    static void	read(std::ifstream &i, Fraction &elem) {
+        i >> elem;
+	}
+	static void	write(std::ofstream &o, const Fraction &elem) {
+        o << elem << "\n";
 	}
 };
 

@@ -100,7 +100,7 @@ Fraction::operator float() const {
 }
 
 std::ostream &operator<<(std::ostream &pOutput, const Fraction &pFraction) {
-	pOutput << "(" << pFraction.counter << "/" << pFraction.denominator << ")";
+	pOutput << "(" << pFraction.counter << "/" << pFraction.denominator << ")" << " ";
 	return pOutput;
 }
 

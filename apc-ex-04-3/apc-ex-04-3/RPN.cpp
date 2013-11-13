@@ -56,6 +56,17 @@ void RPN<T>::add() {
 	end_ = --stack_.end();
 }
 
+//Note: the inline in the specialization method. It is required for the code not to have linker error due to the method being defined more then once.
+template<>
+inline void RPN<Fraction>::add() {
+    cout << "Type your number to add to the stack: " << endl;
+    cout << "Note: User (x/y) to iput your Fraction " << endl;
+	Fraction number;
+	cin >> number;
+	stack_.push_back(number);
+	end_ = --stack_.end();
+}
+
 template<typename T>
 void RPN<T>::remove() {
 	if (stack_.size() > 0) {
@@ -81,18 +92,19 @@ void RPN<T>::compute_min() {
 	--end_;
 	second_ = *end_;
 	stack_.pop_back();
-	my_min_val = first_;
-    // std::bind(): The function template bind generates a forwarding call wrapper for f. Calling this wrapper is equivalent to invoking f with some of its arguments bound to args.
-	for_each(--stack_.begin(), ++stack_.end(), std::bind(&RPN<T>::mymin,this,std::placeholders::_1));
-	stack_.push_back(my_min_val);
+    my_min_val = first_;
+    // using for_each
+    // std::bind(): The function template 'bind' generates a forwarding call wrapper for f. Calling this wrapper is equivalent to invoking f with some of its arguments bound to args.
+    //for_each(--stack_.begin(), ++stack_.end(), std::bind(&RPN<T>::mymin, this, std::placeholders::_1));
+    stack_.push_back(my_min_val);
 	++end_;
 }
 
 template<typename T>
 void RPN<T>::mymin(const T &a) {
-	if (a < my_min_val) {
-		my_min_val = a;
-	}
+    if (a < my_min_val) {
+        my_min_val = a;
+    }
 }
 
 template<typename T>
@@ -184,26 +196,6 @@ void RPN<T>::division() {
 	
 }
 
-template<typename T>
-void RPN<T>::arctan() {
-	if (isEmpty()) {
-		throw "Error: Stack is empty.";
-	}
-	if (tooShort()) {
-		throw "Error: Stack has only one element.";
-	}
-	end_= stack_.end();
-	--end_;
-	first_ = *end_;
-	stack_.pop_back();
-	--end_;
-	second_ = *end_;
-	stack_.pop_back();
-	T res = first_ + second_;
-	printRes(res);
-	stack_.push_back(res);
-	++end_;
-}
 
 template<typename T>
 void RPN<T>::printRes(const T pRes) {

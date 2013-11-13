@@ -12,14 +12,16 @@
 #include <iostream>
 #include "Util.h"
 
+#include <iostream>
+
 class Fraction {
 public:
-    Fraction(int pCounter=0, int pDenominator=1);
-    
+    Fraction(int pCounter, int pDenominator);
+	Fraction();
     int getCounter();
-    void setCounter(int cntr);
+    void setCounter(const int cntr);
     int getDenominator();
-    void setDenominator(int pDenominator);
+    void setDenominator(const int pDenominator);
     
     Fraction operator+(Fraction &pFraction);
     Fraction operator-(Fraction &pFraction);
@@ -27,7 +29,8 @@ public:
     Fraction operator/(Fraction &pFraction);
     
     void reduce();
-    void validateFraction(Fraction *pFraction);
+    int gcf(int a, int b); //ggT
+    void validateFraction(Fraction &pFraction);
     
 private:
     int counter;

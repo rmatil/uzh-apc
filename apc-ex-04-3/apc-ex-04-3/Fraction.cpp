@@ -80,18 +80,18 @@ Fraction Fraction::operator/(Fraction &pFraction) {
     return tmp;
 }
 
-bool Fraction::operator>(Fraction &pFraction) {
+Fraction Fraction::operator>(Fraction &pFraction) {
 	if (this->to_float()>pFraction.to_float()) {
-		return true;
+		return pFraction;
 	}
-	return false;
+	return *this;
 }
 
-bool Fraction::operator<(Fraction &pFraction) {
+Fraction Fraction::operator<(Fraction &pFraction) {
 	if (this->to_float()<pFraction.to_float()) {
-		return true;
+		return *this;
 	}
-	return false;
+	return pFraction;
 }
 
 
@@ -105,11 +105,12 @@ std::ostream &operator<<(std::ostream &pOutput, const Fraction &pFraction) {
 }
 
 std::istream &operator>>(std::istream &pInput, Fraction &pFraction) {
-	cout << "Note: Use x/y to input your fraction." << endl;
-	char tmp;
+	char tmp0, tmp1, tmp2;
+    pInput >> tmp0;
 	pInput >> pFraction.counter;
-	pInput >> tmp;
+	pInput >> tmp1;
 	pInput >> pFraction.denominator;
+    pInput >> tmp2;
 	pFraction.reduce();
 	return pInput;
 }
